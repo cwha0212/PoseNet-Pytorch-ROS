@@ -81,6 +81,33 @@ python3 train.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/K
 
 - `solver.py`의 138~142 line 을 198 line의 밑으로 이동시킴
 
-# tensorboard 실행
+```bash
+#tensorboard 실행
 tensorboard --logdir ./summaries_{Last Folder name of image path}
 ```
+
+- 이후, model test를 진행함
+
+```bash
+python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/KingsCollege/dataset_test.txt --test_model 49
+
+python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/KingsCollege/dataset_test.txt --test_model 399
+
+python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/KingsCollege/dataset_test.txt --test_model best
+```
+
+
+---
+
+## 결과
+
+- test.py를 돌려본 결과값은 x,y,z좌표값과 Quaternion좌표값을 ZYX-Euler Angle 값으로 변환한 값을 보여주었다.
+
+- 오차평균
+  - `49_net.pth`: 1.671 / 0.121
+  - `399_net.pth`: 22.280 / 0.528
+  - `best_net.pth`: 2.161 / 0.106
+
+- 학습을 더 오래 진행한 결과값이 더 오차가 크게 나온것을 보고 무언가 잘못되었다고 판단하고 다시 돌려볼 예정
+
+- 후에 ROS에 적용 할때는 사진을 `sensor_msgs/Image.msg`로 Subscribe하고, Quaternion 좌표값을 ZYX-Euler Angle 값으로 변환하지 않고, `geometry_msgs/Pose.msg`의 `Point position`에 x,y,z좌표값을 `Quaternion orientation`에 Quaternion 좌표값을 입력하여 Publish 하는 Node를 제작하면 되겠다고 생각하였다.
