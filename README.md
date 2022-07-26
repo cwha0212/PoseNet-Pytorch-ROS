@@ -108,6 +108,6 @@ python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/Ki
   - `399_net.pth`: 22.280 / 0.528
   - `best_net.pth`: 2.161 / 0.106
 
-- 학습을 더 오래 진행한 결과값이 더 오차가 크게 나온것을 보고 무언가 잘못되었다고 판단하고 다시 돌려볼 예정
+- 학습을 더 오래 진행한 결과값이 더 오차가 크지만, Val loss와 train loss의 차이가 가장 적다.
 
 - 후에 ROS에 적용 할때는 사진을 `sensor_msgs/Image.msg`로 Subscribe하고, Quaternion 좌표값을 ZYX-Euler Angle 값으로 변환하지 않고, `geometry_msgs/Pose.msg`의 `Point position`에 x,y,z좌표값을 `Quaternion orientation`에 Quaternion 좌표값을 입력하여 Publish 하는 Node를 제작하면 되겠다고 생각하였다.
