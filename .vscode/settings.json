@@ -1,0 +1,6 @@
+{
+  "python.analysis.extraPaths": [
+    "./ROS_NODE",
+    "./ROS_NODE"
+  ]
+}

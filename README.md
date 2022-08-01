@@ -111,3 +111,26 @@ python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/Ki
 - 학습을 더 오래 진행한 결과값이 더 오차가 크지만, Val loss와 train loss의 차이가 가장 적다.
 
 - 후에 ROS에 적용 할때는 사진을 `sensor_msgs/Image.msg`로 Subscribe하고, Quaternion 좌표값을 ZYX-Euler Angle 값으로 변환하지 않고, `geometry_msgs/Pose.msg`의 `Point position`에 x,y,z좌표값을 `Quaternion orientation`에 Quaternion 좌표값을 입력하여 Publish 하는 Node를 제작하면 되겠다고 생각하였다.
+
+---
+
+## 사용할 코드 분석
+
+- Posenet-Pytorch 내부에 있는 모든 파이썬 파일을 사용할 필요는 없다고 판단하였다. 일단, train을 통해서 얻은 models 폴더 내부의 `.pth`파일 한가지와 test를 진행할 이미지 파일 한가지를 Docker내부의 `posenet_pkg` 폴더 내부로 이동시켰다.
+  - `test.py` : 메인 파일
+  - `solver.py` : 연산 및 결과값 출력을 해주는 파일
+  - `model.py` : CNN모델 ("ResNet")과 계산을 불러오는 파일
+  - `pose_utils.py` : 결과값의 변환을 담당하는 함수들이 있는 파일
+  - `data_loader.py` : 데이터를 불러와주는 파일
+
+- 불필요하다고 판단되는 부분을 전부 삭제시키고, 앞에 `node_`를 붙여 새로운 파일로 제작함
+
+---
+
+## ROS2 Node 제작
+
+- `Image`를 `Publish`하는 노드와 이를 `Subscribe`하고 `Pose`를 발행하는 노드 총 2가지 제작
+- `from PIL import Image`와 `Image`가 이름이 겹치므로, 이를 유의하여 제작
+- 그림은 opencv형식에서 msg로, msg에서 opencv로, opencv에서 PIL형식으로 변환하여 사용하였다.
+- 파일을 따로 열음으로써 `model_path`외에 다른 매개변수들은 전부 삭제하거나 대체하여주었다.
+- 최종적으로 터미널 창에 결과값 출력이 되는 것을 확인하였다.
