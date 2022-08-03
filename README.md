@@ -129,8 +129,4 @@ python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/Ki
 
 ## ROS2 Node 제작
 
-- `Image`를 `Publish`하는 노드와 이를 `Subscribe`하고 `Pose`를 발행하는 노드 총 2가지 제작
-- `from PIL import Image`와 `Image`가 이름이 겹치므로, 이를 유의하여 제작
-- 그림은 opencv형식에서 msg로, msg에서 opencv로, opencv에서 PIL형식으로 변환하여 사용하였다.
-- 파일을 따로 열음으로써 `model_path`외에 다른 매개변수들은 전부 삭제하거나 대체하여주었다.
-- 최종적으로 터미널 창에 결과값 출력이 되는 것을 확인하였다.
+- https://github.com/cwha0212/posenet_pkg 참고
