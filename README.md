@@ -129,5 +129,5 @@ python3 test.py --image_path ./posenet/KingsCollege --metadata_path ./posenet/Ki
 
 ## ROS2 Node 제작
 
-![스크린샷](./스크린샷, 2022-08-04 02-17-54.png)
+![스크린샷](.image/스크린샷.png)
 - https://github.com/cwha0212/posenet_pkg 참고
